@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>oauth2-test-client</title>
+</head>
+<body>
+<p>
+    <img src="http://www.sirca.org.au/wp-content/themes/sirca_2012/images/sircalogo.png"/>
+</p>
+<h1>oauth2-test-client</h1>
+<p>
+    This is a simple app to test OAuth2 login against OpenAM.
+</p>
+{% if access_token %}
+    <p>You are logged in! Your access_token details are below</p>
+    <pre>{{access_token}}</pre>
+    <p>
+        <a href="/logout">Logout</a>.
+    </p>
+{% else %}
+    <p>You don't appear to be logged in. Use
+       <a href="/login">this login link</a> to log in. You will be redirected to OpenAM
+       to enter your password (hint <code>demo:changeit</code>) and then back here
+    </p>
+{% endif %}
+</body>
+</html>
