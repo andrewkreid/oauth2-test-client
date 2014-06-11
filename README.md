@@ -36,6 +36,16 @@ https://FQDN:5000/
 
 Try logging in. You should get redirected to the OpenAM login page and then back.
 
+## Quickstart for a fresh EC2 instance
+
+```
+sudo yum install git python-pip gcc pyOpenSSL
+sudo pip install Flask-OAuthlib
+git clone https://github.com/andrewkreid/oauth2-test-client.git
+cd oauth2-test-client
+python ./openam_client.py
+```
+
 
 
 
