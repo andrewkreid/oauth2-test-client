@@ -5,11 +5,6 @@ import logging
 import requests
 import json
 
-app = Flask(__name__)
-app.debug = True
-app.secret_key = 'development'
-oauth = OAuth(app)
-
 # global properties dict. Can be optionally overriden with config.properties file
 app_props = {
     'consumer_key': 'oauth2-test-client',
@@ -19,6 +14,19 @@ app_props = {
     'authorize_url': "https://ec2-54-79-0-185.ap-southeast-2.compute.amazonaws.com:8443/openam/oauth2/authorize",
     'tokeninfo_url': "https://ec2-54-79-0-185.ap-southeast-2.compute.amazonaws.com:8443/openam/oauth2/tokeninfo",
 }
+
+app = Flask(__name__)
+app.debug = True
+app.secret_key = 'development'
+
+oauth = OAuth(app)
+
+if os.path.exists('config.properties'):
+    with open('config.properties', 'r') as fd:
+        for line in fd.readlines():
+            tokens = line.strip().split('=')
+            if len(tokens) == 2:
+                app_props[tokens[0]] = tokens[1]
 
 openam = oauth.remote_app(
     'openam',
@@ -31,6 +39,7 @@ openam = oauth.remote_app(
     access_token_url=app_props['access_token_url'],
     authorize_url=app_props['authorize_url']
 )
+
 
 
 @app.route('/')
@@ -97,13 +106,6 @@ def get_openam_oauth_token():
 if __name__ == '__main__':
     logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
     log = logging.getLogger('openam_client')
-
-    if os.path.exists('config.properties'):
-        with open('config.properties', 'r') as fd:
-            for line in fd.readlines():
-                tokens = line.strip().split('=')
-                if len(tokens) == 2:
-                    app_props[tokens[0]] = tokens[1]
 
     # The ssl_context is important here. oauthlib will complain about
     # the transport being insecure otherwise.
