@@ -109,4 +109,5 @@ if __name__ == '__main__':
 
     # The ssl_context is important here. oauthlib will complain about
     # the transport being insecure otherwise.
-    app.run(debug=True, ssl_context="adhoc", host="0.0.0.0")
+    #app.run(debug=True, ssl_context="adhoc", host="0.0.0.0")
+    app.run(debug=True, host="0.0.0.0")

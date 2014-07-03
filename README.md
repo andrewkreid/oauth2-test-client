@@ -25,7 +25,8 @@ tokeninfo_url=https://<OpenAM Host:Port>/openam/oauth2/tokeninfo
 ```
 
 Run like so:
-```
+```bash
+$ export OAUTHLIB_INSECURE_TRANSPORT=1   # If not using SSL everywhere
 $ python ./openam_client.py
 ```
 
@@ -43,6 +44,7 @@ sudo yum install git python-pip gcc pyOpenSSL
 sudo pip install Flask-OAuthlib
 git clone https://github.com/andrewkreid/oauth2-test-client.git
 cd oauth2-test-client
+export OAUTHLIB_INSECURE_TRANSPORT=1
 python ./openam_client.py
 ```
 
